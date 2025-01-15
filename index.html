@@ -322,26 +322,27 @@
                 const tr = document.createElement("tr");
                 headers.forEach(header => {
                     const td = document.createElement("td");
+                    td.style.textAlign = "center";
                     if (row[header].includes('<a ')) {
                         td.innerHTML = row[header]; // Render hyperlinks as clickable links
                     }
                     // Check if the column is "Priority" and apply color coding
                     else if (header.toLowerCase() === "priority") {
-        td.textContent = row[header];
-        if (row[header] === "Medium") {
-            td.style.backgroundColor = "rgb(231, 210, 131)";
-            td.style.color = "black"; // Set text color to black
-        } else if (row[header] === "High") {
-            td.style.backgroundColor = "red";
-            td.style.color = "black"; // Set text color to black
-        } else if (row[header] === "Highest") {
-            td.style.backgroundColor = "darkred";
-            td.style.color = "black"; // Set text color to black
-        } else if (row[header] === "Low") {
-            td.style.backgroundColor = "rgb(237, 244, 194)";
-            td.style.color = "black"; // Set text color to black
-        }
-    }
+                        td.textContent = row[header];
+                        if (row[header] === "Medium") {
+                            td.style.backgroundColor = "rgb(231, 210, 131)";
+                            td.style.color = "black"; // Set text color to black
+                        } else if (row[header] === "High") {
+                            td.style.backgroundColor = "red";
+                            td.style.color = "black"; // Set text color to black
+                        } else if (row[header] === "Highest") {
+                            td.style.backgroundColor = "darkred";
+                            td.style.color = "black"; // Set text color to black
+                        } else if (row[header] === "Low") {
+                            td.style.backgroundColor = "rgb(237, 244, 194)";
+                            td.style.color = "black"; // Set text color to black
+                        }
+                    }
                     // For all other columns, render plain text
                     else {
                         td.textContent = row[header];
