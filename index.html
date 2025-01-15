@@ -28,7 +28,7 @@
         }
 
         #sidebar {
-            width: 320px;
+            width: 270px;
             background-color: #f4f4f4;
             padding: 20px;
             position: fixed;
@@ -40,7 +40,7 @@
         }
 
         #content {
-            margin-left: 340px;
+            margin-left: 300px;
             padding: 20px;
             overflow-y: auto;
             flex-grow: 1;
@@ -73,6 +73,92 @@
             background-color: #f4f4f4;
         }
 
+        /* Table container for horizontal scrolling */
+        /* Table container styles */
+        .table-container {
+            width: 100%;
+            /* Ensure it takes full available width */
+            max-height: 400px;
+            /* Set max height for vertical scrolling */
+            overflow: auto;
+            /* Enable both horizontal and vertical scrolling */
+            display: block;
+            /* Block display to enable scrolling */
+        }
+
+        /* Make sure the table inside the container is not wider than the container itself */
+        .table-container table {
+            width: 100%;
+            min-width: 600px;
+            /* Minimum width to prevent the table from becoming too narrow */
+            border-collapse: collapse;
+            /* Collapse table borders */
+        }
+
+        /* Table cell styles */
+        .table-container th,
+        .table-container td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+            vertical-align: top;
+            white-space: nowrap;
+            /* Prevent word wrapping */
+            overflow: hidden;
+            /* Hide overflow content */
+            text-overflow: ellipsis;
+            /* Show "..." for overflow content */
+        }
+
+        /* Add background color and styling for headers */
+        .table-container th {
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+
+
+        /* Styling for header */
+        th {
+            background-color: #f4f4f4;
+            font-weight: bold;
+        }
+
+        /* Styling for the table cells */
+        th,
+        td {
+            padding: 10px;
+            text-align: left;
+            /* Align text to the left */
+            border: 1px solid #ddd;
+            /* Border for the table cells */
+            word-wrap: break-word;
+            /* Allow long words to break and wrap */
+        }
+
+        /* Optional: Styling for the active nav-link */
+        .nav-link {
+            margin: 15px 0;
+            cursor: pointer;
+            display: block;
+            padding: 15px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            transition: background-color 0.3s;
+            font-size: 16px;
+        }
+
+        .nav-link:hover {
+            background-color: #ddd;
+        }
+
+        .nav-link.active {
+            background-color: #007bff;
+            /* Highlight color for active link */
+            color: white;
+            /* Text color for contrast */
+        }
+
+        /* Flex layout for combined view sections */
         #combinedView {
             display: flex;
             flex-direction: column;
@@ -102,41 +188,26 @@
             min-width: 400px;
         }
 
-        .nav-link {
-            margin: 15px 0;
-            cursor: pointer;
-            display: block;
-            padding: 15px;
-            border-radius: 5px;
-            background-color: #f9f9f9;
-            transition: background-color 0.3s;
-            font-size: 16px;
-        }
-
-        .nav-link:hover {
-            background-color: #ddd;
-        }
-
-        .nav-link.active {
-            background-color: #007bff;
-            /* Highlight color for active link */
-            color: white;
-            /* Change text color for better contrast */
-        }
-
-
         .active {
             background-color: #ddd;
+        }
+
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            /* Enable horizontal scrolling */
+            -webkit-overflow-scrolling: touch;
+            /* For smooth scrolling on iOS */
         }
     </style>
 </head>
 
 <body>
     <div id="sidebar">
-        <h2 style="font-size: 24px;">
+        <h2 style="font-size: 20px;">
             Manual Test Report
             <br>
-            <span style="font-size: 18px;">[06/12/2024 to 27/12/2024]</span>
+            <span style="font-size: 15px;">[06/12/2024 to 27/12/2024]</span>
         </h2>
         <div class="nav-link" id="combinedViewLink">Sanity Report</div>
         <div class="nav-link" id="barChartLink">Defect Summary Status</div>
@@ -165,14 +236,19 @@
                 <canvas id="hBarChart" width="800" height="400"></canvas>
                 <div id="hBarDataContainer">
                     <h2 id="hbarChartHeading">Click on a bar to see its details</h2>
-                    <table id="hBarDataTable">
-                        <thead>
-                            <tr id="hBarTableHeader"></tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
+
+                    <!-- Add the table-container here -->
+                    <div class="table-container">
+                        <table id="hBarDataTable">
+                            <thead>
+                                <tr id="hBarTableHeader"></tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
+
         </div>
 
         <div id="barChartSection" style="display: none;">
@@ -251,21 +327,21 @@
                     }
                     // Check if the column is "Priority" and apply color coding
                     else if (header.toLowerCase() === "priority") {
-                        td.textContent = row[header];
-                        if (row[header] === "Medium") {
-                            td.style.backgroundColor = "grey";
-                            td.style.color = "white"; // Optional: Adjust text color for better contrast
-                        } else if (row[header] === "High") {
-                            td.style.backgroundColor = "red";
-                            td.style.color = "white";
-                        } else if (row[header] === "Highest") {
-                            td.style.backgroundColor = "darkred";
-                            td.style.color = "white";
-                        } else if (row[header] === "Low") {
-                            td.style.backgroundColor = "orange";
-                            td.style.color = "white";
-                        }
-                    }
+        td.textContent = row[header];
+        if (row[header] === "Medium") {
+            td.style.backgroundColor = "rgb(231, 210, 131)";
+            td.style.color = "black"; // Set text color to black
+        } else if (row[header] === "High") {
+            td.style.backgroundColor = "red";
+            td.style.color = "black"; // Set text color to black
+        } else if (row[header] === "Highest") {
+            td.style.backgroundColor = "darkred";
+            td.style.color = "black"; // Set text color to black
+        } else if (row[header] === "Low") {
+            td.style.backgroundColor = "rgb(237, 244, 194)";
+            td.style.color = "black"; // Set text color to black
+        }
+    }
                     // For all other columns, render plain text
                     else {
                         td.textContent = row[header];
@@ -293,9 +369,9 @@
                 const th = document.createElement("th");
                 th.textContent = header;
 
-                // Apply specific width for "Test Steps" column
-                if (header === "Test Steps") {
-                    th.style.minWidth = "300px"; // Assign a larger minimum width
+                // Apply specific width for "Test Steps", "Actual Results", and "Expected Results" columns
+                if (header === "Test Steps" || header === "Actual Results" || header === "Expected Results") {
+                    th.style.minWidth = "300px"; // Larger minimum width
                 } else {
                     th.style.minWidth = "120px"; // Default minimum width
                 }
@@ -310,6 +386,7 @@
                 tableHeader.appendChild(th);
             });
 
+
             data.forEach(row => {
                 const tr = document.createElement("tr");
                 headers.forEach(header => {
@@ -322,22 +399,14 @@
                         td.textContent = row[header]; // Render other data as plain text
                     }
 
-                    if (row[header].includes('<a ')) {
-                        td.innerHTML = row[header];
-                    }
                     // Check for color column and render it as a styled cell
-                    else if (header.toLowerCase() === "color") {
+                    if (header.toLowerCase() === "color") {
                         td.textContent = row[header]; // Display the color value
                         td.style.backgroundColor = row[header]; // Apply the color as the cell background
                         td.style.color = "white"; // Optional: Adjust text color for better readability
                     }
-                    // Render other data as plain text
-                    else {
-                        td.textContent = row[header];
-                    }
 
-                    // Apply specific width for "Test Steps" column
-                    // Apply specific width for different columns
+                    // Apply specific width for columns like "Test Steps", "Actual Results", "Expected Results"
                     if (header === "Test Steps") {
                         td.style.minWidth = "300px"; // Assign a larger minimum width for "Test Steps"
                     } else if (header === "Actual Results") {
@@ -349,7 +418,6 @@
                     }
 
 
-
                     // Apply consistent styling to the cells
                     td.style.height = "25px"; // Allow cell height to adjust dynamically
                     td.style.border = "1px solid #ddd";
@@ -358,11 +426,18 @@
                     td.style.padding = "10px"; // Add padding for readability
                     td.style.whiteSpace = "pre-wrap"; // Preserve formatting and wrap text
                     td.style.wordWrap = "break-word"; // Enable word wrapping
+                    td.style.fontSize = "12px";
 
                     tr.appendChild(td);
                 });
                 tableBody.appendChild(tr);
             });
+
+            // Set the table's container to fit within the screen width
+            const tableContainerElement = document.querySelector(".table-container");
+            tableContainerElement.style.overflowX = "auto"; // Make the table horizontally scrollable if content overflows
+            tableContainerElement.style.maxWidth = "100%"; // Ensure the container doesn't exceed the screen width
+            tableContainerElement.style.display = "block"; // Ensure the container takes the correct block-level layout
         }
 
 
@@ -604,7 +679,7 @@
 
             loadXlsx(chartXlsxFile, function (data) {
                 const labels = ["Defects Reported", "Defects Resolved ", "Re-occured Defects", "Pending"];
-                const values = [34, 28, 1, 4];
+                const values = [34, 28, 1, 6];
                 createBarChart(labels, values);
             });
         }
